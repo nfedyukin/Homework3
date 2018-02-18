@@ -21,12 +21,18 @@ if($x and $y){
             $result = $x * $y;
             break;
         case '/':
-            $result = $x / $y;
+            if($y==0){
+                $result = 'Деление на ноль!';
+            } else {
+                $result = $x / $y;
+            }
             break;
         default:
-            $result = null;
+            $result = 'e';
             break;
     }
+} else {
+    $result = 'e';
 }
 ?>
 
@@ -57,7 +63,8 @@ if($x and $y){
 </form>
 
 <?php
-if($result){
+var_dump($result);
+if($result !== "e"){
     ?><br><i> Результат:</i> <b><?php
     echo $result;
 }
