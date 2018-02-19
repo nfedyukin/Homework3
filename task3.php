@@ -50,13 +50,13 @@ if (isset($_FILES['image'])){
     </style>
 </head>
 <body>
-
+<a href="/Homework3/index.html">Назад</a>
 <h1>Задание №3</h1>
 <h2>Фотогалерея</h2>
 <div style="width: 300px">
     <form style="border: 2px solid #4CAF50" method="post" enctype="multipart/form-data" >
         <!--<input type="hidden" name="MAX_FILE_SIZE" value="1000">-->
-        <h3 style="margin-left: 10px">Добавить рисунок: </h3>
+        <h3 style="margin-left: 10px">Добавить рисунок(jpeg, png): </h3>
         <input type="button" style="margin-left: 10px" class="button button1" id="loadFile" value="1. Выбрать рисунок" onclick="document.getElementById('image').click();" />
         <input type="file" style="display:none;" id="image" name="image" accept="image/jpeg, image/png"><br>
         <button type="submit" style="margin-left: 10px" class="button button1">2. Добавить в библиотеку</button>

@@ -63,7 +63,7 @@ if($x and $y){
 </form>
 
 <?php
-var_dump($result);
+//var_dump($result);
 if($result !== "e"){
     ?><br><i> Результат:</i> <b><?php
     echo $result;
