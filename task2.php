@@ -12,7 +12,9 @@ if(isset($_POST['comment'])){
     array_push($comments, PHP_EOL . str_replace(PHP_EOL, ' ',$_POST['comment']));
     //сохраняем массив в файл
     file_put_contents($file_comments, $comments);
-    $comments = file($file_comments);
+    header('Location: /Homework3/index.html');
+    //$comments = file($file_comments);
+
 }
 ?>
 
