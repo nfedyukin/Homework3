@@ -1,10 +1,16 @@
 <?php
-$file_comments = __DIR__ . '\data\comments.txt';
 
+//путь до файла с комментариями
+$file_comments = __DIR__ . '/data/comments.txt';
+
+//читаем файл в массив
 $comments = file($file_comments);
 
-if($_POST['comment']){
+//Если $_POST['comment'] не null
+if(isset($_POST['comment'])){
+    //добавляем комментарий к массиву
     array_push($comments, PHP_EOL . str_replace(PHP_EOL, ' ',$_POST['comment']));
+    //сохраняем массив в файл
     file_put_contents($file_comments, $comments);
     $comments = file($file_comments);
 }

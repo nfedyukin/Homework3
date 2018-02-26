@@ -1,8 +1,11 @@
 <?php
 $img_folder = __DIR__ . '/img/';
 
+//Если $_FILES['image'] не null
 if (isset($_FILES['image'])){
+    // ... и нет ошибок
     if(0 == $_FILES['image']['error']){
+        //... перемещаем изображение из временного каталога
         move_uploaded_file(
                 $_FILES['image']['tmp_name'],
                 $img_folder .$_FILES['image']['name']
@@ -57,6 +60,7 @@ if (isset($_FILES['image'])){
     <form style="border: 2px solid #4CAF50" method="post" enctype="multipart/form-data" >
         <!--<input type="hidden" name="MAX_FILE_SIZE" value="1000">-->
         <h3 style="margin-left: 10px">Добавить рисунок(jpeg, png): </h3>
+        <!-- Подменяем стандартную кнопку file-->
         <input type="button" style="margin-left: 10px" class="button button1" id="loadFile" value="1. Выбрать рисунок" onclick="document.getElementById('image').click();" />
         <input type="file" style="display:none;" id="image" name="image" accept="image/jpeg, image/png"><br>
         <button type="submit" style="margin-left: 10px" class="button button1">2. Добавить в библиотеку</button>
@@ -66,9 +70,11 @@ if (isset($_FILES['image'])){
 <br>
 <hr style="border: 1px solid #4CAF50">
 <?php
+// Получаем в массив список файлов, отбрасываем "." и ".." , выбираем по паттерну только избражения (jpeg|jpg|png)
 $img_list = preg_grep('~\.(jpeg|jpg|png)$~',array_slice(scandir($img_folder), 2));
 //var_dump($img_list);
 
+//перебираем массив, генерируем тэги <img>
 foreach ($img_list as $image){
     ?>
     <img id="shadowbox" style="width: auto" src="<?php echo '/Homework3/img/' . $image ?>"><br><br>

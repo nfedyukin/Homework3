@@ -1,15 +1,10 @@
 <?php
-$x='';
-$y='';
-if(isset($_POST['x']))
-{
+
+$error='';
+//Если заполнены оба поля, вычисляем результат
+if(($_POST['x'] !== '') and ($_POST['y'] !== '')){
     $x = $_POST['x'];
-}
-if(isset($_POST['y']))
-{
     $y = $_POST['y'];
-}
-if($x and $y){
     switch ($_POST['op']){
         case '+':
             $result = $x + $y;
@@ -22,18 +17,22 @@ if($x and $y){
             break;
         case '/':
             if($y==0){
-                $result = 'Деление на ноль!';
+                $error = 'Divizion by zero!';
             } else {
                 $result = $x / $y;
             }
             break;
         default:
-            $result = 'e';
             break;
     }
-} else {
-    $result = 'e';
 }
+
+//Лямбда для выбора последней использовавшейся операции
+$isSelected = function ($op)
+{
+    if($_POST['op'] == $op) return 'selected="selected"';
+}
+
 ?>
 
 
@@ -53,10 +52,10 @@ if($x and $y){
 <form method="post">
     <input type="text" name="x" value="<?php echo $x ?>">
     <select name="op" >
-        <option name="+"<?php if($_POST['op'] == '+'){?> selected="selected"<?php;} ?>>+</option>
-        <option name="-"<?php if($_POST['op'] == '-'){?> selected="selected"<?php;} ?>>-</option>
-        <option name="*"<?php if($_POST['op'] == '*'){?> selected="selected"<?php;} ?>>*</option>
-        <option name="/"<?php if($_POST['op'] == '/'){?> selected="selected"<?php;} ?>>/</option>
+        <option name="+"<?php echo $isSelected('+') ?>>+</option>
+        <option name="-"<?php echo $isSelected('-') ?>>-</option>
+        <option name="*"<?php echo $isSelected('*')?>>*</option>
+        <option name="/"<?php echo $isSelected('/') ?>>/</option>
     </select>
     <input type="text" name="y" value="<?php echo $y ?>">
     <button type="submit">=</button>
@@ -64,10 +63,18 @@ if($x and $y){
 
 <?php
 //var_dump($result);
-if($result !== "e"){
-    ?><br><i> Результат:</i> <b><?php
-    echo $result;
-}
+//Вывод результата
+if(isset($result))
+    {
+        ?><br><i> Результат:</i> <b><?php
+        echo $result;
+    }
+//ошибка
+elseif ($error !== '')
+    {
+    ?><br><i> Error! </i> <b><?php
+        echo $error;
+    }
 ?></b>
 
 
