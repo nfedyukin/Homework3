@@ -1,38 +1,14 @@
 <?php
+require_once __DIR__ . '/functions.php';
+
+$actions  = ['+','-','*','/'];
 
 $error='';
 //Если заполнены оба поля, вычисляем результат
 if(($_POST['x'] !== '') and ($_POST['y'] !== '')){
-    $x = $_POST['x'];
-    $y = $_POST['y'];
-    switch ($_POST['op']){
-        case '+':
-            $result = $x + $y;
-            break;
-        case '-':
-            $result = $x - $y;
-            break;
-        case '*':
-            $result = $x * $y;
-            break;
-        case '/':
-            if($y==0){
-                $error = 'Divizion by zero!';
-            } else {
-                $result = $x / $y;
-            }
-            break;
-        default:
-            break;
-    }
-}
 
-//Лямбда для выбора последней использовавшейся операции
-$isSelected = function ($op)
-{
-    if($_POST['op'] == $op) return 'selected="selected"';
+    $result = calculate($_POST['x'], $_POST['y'], $_POST['op']);
 }
-
 ?>
 
 
@@ -49,13 +25,19 @@ $isSelected = function ($op)
 <h1>Задание №1</h1>
 <h2>Калькулятор</h2>
 
-<form method="post">
+<form method="post" action="/Homework3/task1.php">
     <input type="text" name="x" value="<?php echo $x ?>">
     <select name="op" >
-        <option name="+"<?php echo $isSelected('+') ?>>+</option>
-        <option name="-"<?php echo $isSelected('-') ?>>-</option>
-        <option name="*"<?php echo $isSelected('*')?>>*</option>
-        <option name="/"<?php echo $isSelected('/') ?>>/</option>
+        <?php
+
+        foreach ($actions as $act)
+        {
+            ?>
+              <option name="<?php echo $act ?>" <?php echo ($act == $_POST['op']?'selected ':'') ?>><?php echo $act ?></option>
+            <?php
+        }
+        ?>
+
     </select>
     <input type="text" name="y" value="<?php echo $y ?>">
     <button type="submit">=</button>
@@ -68,12 +50,6 @@ if(isset($result))
     {
         ?><br><i> Результат:</i> <b><?php
         echo $result;
-    }
-//ошибка
-elseif ($error !== '')
-    {
-    ?><br><i> Error! </i> <b><?php
-        echo $error;
     }
 ?></b>
 
