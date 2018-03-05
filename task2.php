@@ -4,9 +4,9 @@
 require_once __DIR__ . '/functions.php';
 
 //путь до файла с комментариями
-$file_comments = __DIR__ . '/data/comments.txt';
+//$file_comments = __DIR__ . '/data/comments.txt';
 
-$comments = getComments($file_comments);
+$comments = getComments();
 
 ?>
 
